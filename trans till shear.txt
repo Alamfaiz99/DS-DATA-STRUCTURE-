@@ -1,0 +1,151 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<graphics.h>
+#include<DOS.h>
+int x[10],y[10],i,n;
+float sfx,sfy;
+void recrotate(int cx,int cy,int w,int h,int angle=0)
+{
+       double theta=(double)(((angle%180)*3.14)/180);
+       int dx=w/2;
+       int dy=h/2;
+       int i;
+       int point[8]=
+       {
+       (-dx*cos(theta)-dy*sin(theta)+cx),
+       (-dx*sin(theta)+dy*cos(theta)+cy),
+       (dx*cos(theta)-dy*sin(theta)+cx),
+       (dx*sin(theta)+dy*cos(theta)+cy),
+       (dx*cos(theta)+dy*sin(theta)+cx),
+       (dx*sin(theta)-dy*cos(theta)+cy),
+       (-dx*cos(theta)+dy*sin(theta)+cx),
+       (-dx*sin(theta)-dy*cos(theta)+cy)
+       };
+       for(i=0;i<8;i=i+2)
+       {
+       line(point[i],point[i+1],point[(i+2)%8],point[(i+3)%8]);
+       }
+}
+void recshear(int cx,int cy,int w,int h,int shx=0,int shy=0)
+{
+       int dx=w/2;
+       int dy=h/2;
+       int i;
+       int point[8]=
+       {
+       ((-dx+cx)+(shx*-dy)),(-dy+cy),(dx+cx+(shx*-dy)),(-dy+cy+(shy*dx)) ,(dx+cx),(dy+cy+(shy*dx)),(-dx+cx),(dy+cy)
+
+};
+       for(i=0;i<8;i=i+2)
+       {
+       line(point[i],point[i+1],point[(i+2)%8],point[(i+3)%8]);
+       }
+}
+
+void draw()
+{
+for(i=0;i<n;i++)
+{
+line(x[i],y[i],x[(i+1)%n],y[(i+1)%n]);
+}
+}
+void scale()
+{
+for(i=0;i<n;i++)
+{
+x[i]=x[0]+(int)((float)(x[i]-x[0])*sfx);
+y[i]=y[0]+(int)((float)(y[i]-y[0])*sfy);
+}
+}
+void main()
+{
+int gd=DETECT,gm;
+int ch,tx,ty;
+initgraph(&gd,&gm,"C:/TURBOC3/BGI");
+printf("OPerations to be performed.\n");
+printf("1.Translation\n2.Rotation\n3.Scaling\n4.Reflection\n5.shear\n");
+printf("Enter your choice:\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:
+       {
+       printf("You have chosen translation.\n");
+       rectangle(200,200,350,300);
+       printf("Enter the amount of translation in x axis:\n");
+       scanf("%d",&tx);
+       rectangle(200+tx,200,350+tx,300);
+       printf("Enetr the amount of translation in y axis:\n");
+       scanf("%d",&ty);
+       rectangle(200,200+ty,350,300+tx);
+       printf("Enter the amount of trannslation in both axis:\n");
+       scanf("%d %d",&tx,&ty);
+       rectangle(200+tx,200+ty,350+tx,300+ty);
+       break;
+       }
+case 2:
+       {
+       int r;
+       printf("You have chosen rotation\n");
+       recrotate(320,240,200,100);
+       recrotate(320,240,200,100,r);
+       break;
+       }
+case 3:
+      {
+      printf("You have chosen scaling.\n");
+      printf("Enter the sides of polygon:\n");
+      scanf("%d",&n);
+      printf("Enter the coordinate ofpolygon:\n");
+      for(i=0;i<n;i++)
+      {
+      scanf("%d %d",&x[i],&y[i]);
+      }
+      printf("Enter the scaling factor sfx and sfy:\n");
+      scanf("%f %f",&sfx,&sfy);
+      cleardevice();
+      setcolor(CYAN);
+      draw();
+      scale();
+      getch();
+      setcolor(YELLOW);
+      draw();
+      getch();
+      break;
+
+      }
+case 4:
+      {
+	printf("You have chosen reflection:\n");
+	rectangle(100,100,250,200);
+	printf("Reflection along x-axis;\n");
+	rectangle(100,-100,250,-200);
+	break;
+      }
+case 5:
+      {
+      int shx,shy;
+      printf("You have chosen shear:\n");
+      recshear(200,250,80,60);
+      printf("for shear in x  enter shx:\n");
+      scanf("%d",&shx);
+      recshear(200,250,80,60,shx);
+      getch();
+      cleardevice();
+      printf("for shearing in y enter shy:\n");
+      scanf("%d",&shy);
+      recshear(200,250,80,60,shy);
+      getch();
+      cleardevice();
+      printf("for sheear in x and y enetr shx and shy:\n");
+      scanf("%d %d",&shx,&shy);
+      recshear(200,250,80,60);
+      recshear(200,250,80,60,shx,shy);
+      }
+}
+getch();
+getch();
+closegraph();
+}

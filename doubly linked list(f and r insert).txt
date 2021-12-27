@@ -1,0 +1,128 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+    struct node*prev;
+    int data;
+    struct node*next;
+    
+}node;
+struct node*f=NULL;
+struct node*r=NULL;
+node* createnode()
+{
+    node*p;
+    p=(node*)malloc(sizeof(node));
+    p->prev=p->next=NULL;
+    return p;
+    
+}
+void finsert()
+{
+    node *p;
+    p=createnode();
+    if(f==NULL)
+    {
+        f=p;
+        printf("Enter the value:\n");
+        scanf("%d",&f->data);
+        r=f;
+        return;
+        
+    }
+    printf("Enetr the value:\n");
+    scanf("%d",&p->data);
+    f->prev=p;
+    p->next=f;
+    f=p;
+    
+}
+void rinsert()
+{
+    node*p;
+    p=createnode();
+    if(r==NULL)
+    {
+        r=p;
+        f=r;
+        printf("Enter the value:\n");
+        scanf("%d",&r->data);
+        return;
+    }
+    printf("Eneter the value:\n");
+    scanf("%d",&p->data);
+    r->next=p;
+    p->prev=r;
+    r=p;
+}
+void fdelete()
+{
+    node*p;
+    if(f==NULL)
+    {
+        printf("underflow");
+        return;
+    }
+    else
+    {
+        p=f;
+        printf("delete element is %d",p->data);
+        f=p->next;
+        free(p);
+    }
+}
+void rdelete()
+{
+    node*p;
+    if(r==NULL)
+    {
+        printf("underflow");
+        return;
+    }
+    else
+    {
+        p=r;
+        printf("the deleted element is %d",p->data);
+        r=p->prev;
+        free(r);
+    }
+}
+void display()
+{
+    node*t;
+    t=f;
+    while(t!=NULL)
+    {
+        printf("<-%d->",t->data);
+        t=t->next;
+    }
+}
+void main()
+{
+    int ch;
+    while(1)
+    {
+    printf("Operations to be performec.\n");
+    printf("1.finsert\n2.rinsert\n3.fdelete\n4.rdelete\n5.display\n6.Exit\n");
+    printf("Enter your choice:\n");
+    scanf("%d",&ch);
+    switch(ch)
+    {
+	case 1:finsert();
+	       break;
+	case 2:rinsert();
+	       break;
+	case 3:fdelete();
+	       break;
+	case 4:rdelete();
+	       break;
+	case 5:display();
+	       break;
+	case 6:exit(0);
+	default:
+	printf("You have entered a wrong choice.\n");
+
+    }
+    }
+
+}

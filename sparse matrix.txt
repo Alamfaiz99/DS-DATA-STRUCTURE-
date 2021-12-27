@@ -1,0 +1,59 @@
+#include <stdio.h>
+int main()
+{
+    
+    int m[10][10],i,j,sm[25][3];
+    int c=0;
+    printf("Enter the elements:\n");
+    for(i=0;i<10;i++)
+    {
+        for(j=0;j<10;j++)
+        {
+            scanf("%d",&m[i][j]);
+            
+        }
+        
+    }
+    printf("THe eneteered elements of 10x10 matrix:\n");
+    for(i=0;i<10;i++)
+    {
+        for(j=0;j<10;j++)
+        {
+            printf("%d ",m[i][j]);
+            
+        }
+        printf("\n");
+    }
+    printf("Sparse matrix:\n");
+    for(i=0;i<10;i++)
+    {
+        for(j=0;j<10;j++)
+        {
+            if(m[i][j]!=0)
+            {
+                c++;
+                sm[c][0]=i;
+                sm[c][1]=j;
+                sm[c][2]=m[i][j];
+            }
+            
+        }
+        
+    }
+    sm[0][0]=0;
+    sm[0][1]=0;
+    sm[0][2]=c;
+    for(i=0;i<c;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            printf("%d ",sm[i][j]);
+            
+        }
+        printf("\n");
+    }
+
+
+
+    return 0;
+}

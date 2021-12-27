@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+    int data;
+    struct node * next;
+    
+}node;
+node *createnode(int n1)
+{
+    node* head,*p,*q;
+    int i;
+    head=(node*)malloc(sizeof(node));
+    printf("Enter the value:\n");
+    scanf("%d",&head->data);
+    head->next=NULL;
+    q=head;
+    i=1;
+    while(i<n1)
+    {
+        p=(node*)malloc(sizeof(node));
+        printf("Enter the value:\n");
+        scanf("%d",&head->data);
+        p->next=NULL;
+        q->next=p;
+        q=p;
+        i++;
+        
+    }
+    
+    return head;
+}
+void display(node * h)
+{
+    
+    int i;
+    node *p=h;
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+        
+        
+    }
+    
+}
+void main()
+{
+    node *p;
+    int n;
+    printf("Enter the number of nodes:\n");
+    scanf("%d",&n);
+    p=createnode(n);
+    display(p);
+    
+}

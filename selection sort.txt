@@ -1,0 +1,38 @@
+#include<stdio.h>
+#define size 8
+void ssort(int ar[])
+{
+    int min,t,i,j;
+    for(i=0;i<size-1;i++)
+    {
+        min=i;
+        for(j=i+1;j<size;j++)
+        {
+            if(ar[j]<ar[min])
+            {
+                min=j;
+            }
+        }
+        t=ar[i];
+        ar[i]=ar[min];
+        ar[min]=t;
+    }
+    
+    for(i=0;i<size;i++)
+    {
+        printf(" %d ",ar[i]);
+    }
+}
+int main()
+{
+    int ar[size];
+    printf("Eneter the elemenrts of array to sort.\n");
+    for(int i=0;i<size;i++)
+    {
+        scanf("%d",&ar[i]);
+    }
+    ssort(&ar[0]);
+    return 0;
+
+
+}
